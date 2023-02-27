@@ -4,10 +4,17 @@ import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import {StackNavigator} from './StackNavigator';
+// import {StackNavigator} from './StackNavigator';
 import SettingsScreen from '../screens/SettingsScreen';
-import { useWindowDimensions, Text, View, Image, TouchableOpacity } from 'react-native';
-import { styles } from '../theme/appTheme';
+import {
+  useWindowDimensions,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import {styles} from '../theme/appTheme';
+import {Tabs} from './Tabs';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,21 +23,23 @@ export const MenuLateral = () => {
 
   return (
     <Drawer.Navigator
+    
       //Si el ancho de la pantalla del movil es mayor a 768 entonces que el menu lateral sea fijo/permanente
       screenOptions={{drawerType: width > 768 ? 'permanent' : 'front'}}
       //desestructuramos las props
-      drawerContent={props => <MenuInterno {...props} />}>
-      <Drawer.Screen name="StackNavigator" component={StackNavigator} />
+      drawerContent={props => <MenuInterno {...props} />}> 
+      {/* <Drawer.Screen name="StackNavigator" component={StackNavigator} /> */}
+      {/* Acá estoy agregando las nuevas tabs al drawer para el bottom navigator */}
+      <Drawer.Screen name="Tabs" component={Tabs} />
       <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
     </Drawer.Navigator>
   );
 };
 
-const MenuInterno = (props: DrawerContentComponentProps) => {
+const MenuInterno = ({navigation}: DrawerContentComponentProps) => {
   return (
     <DrawerContentScrollView>
-      
-      {/*Parte del avatar */ }
+      {/*Parte del avatar */}
       <View style={styles.avatarContainer}>
         <Image
           source={{
@@ -41,16 +50,19 @@ const MenuInterno = (props: DrawerContentComponentProps) => {
         />
       </View>
 
-          {/*Opciones de menu */}
-          <View style={styles.menuContainer}>
-            <TouchableOpacity>
-              <Text style={styles.menuTexto}>Navigation Stack</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.menuTexto}>Settings</Text>
-            </TouchableOpacity>
-          </View>
-
+      {/*Opciones de menu */}
+      <View style={styles.menuContainer}>
+        <TouchableOpacity
+          style={styles.menuBoton}
+          onPress={() => navigation.navigate('Tabs')}>
+          <Text style={styles.menuTexto}>Tabs</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuBoton}
+          onPress={() => navigation.navigate('SettingsScreen')}>
+          <Text style={styles.menuTexto}>Settings</Text>
+        </TouchableOpacity>
+      </View>
     </DrawerContentScrollView>
   );
 };
