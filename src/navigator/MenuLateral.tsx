@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   createDrawerNavigator,
@@ -15,6 +16,7 @@ import {
 } from 'react-native';
 import {styles} from '../theme/appTheme';
 import {Tabs} from './Tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,11 +25,10 @@ export const MenuLateral = () => {
 
   return (
     <Drawer.Navigator
-    
       //Si el ancho de la pantalla del movil es mayor a 768 entonces que el menu lateral sea fijo/permanente
       screenOptions={{drawerType: width > 768 ? 'permanent' : 'front'}}
       //desestructuramos las props
-      drawerContent={props => <MenuInterno {...props} />}> 
+      drawerContent={props => <MenuInterno {...props} />}>
       {/* <Drawer.Screen name="StackNavigator" component={StackNavigator} /> */}
       {/* Acá estoy agregando las nuevas tabs al drawer para el bottom navigator */}
       <Drawer.Screen name="Tabs" component={Tabs} />
@@ -53,14 +54,16 @@ const MenuInterno = ({navigation}: DrawerContentComponentProps) => {
       {/*Opciones de menu */}
       <View style={styles.menuContainer}>
         <TouchableOpacity
-          style={styles.menuBoton}
+          style={{...styles.menuBoton, flexDirection: 'row'}}
           onPress={() => navigation.navigate('Tabs')}>
-          <Text style={styles.menuTexto}>Tabs</Text>
+          <Icon name="compass-outline" size={23} color="black" />
+          <Text style={styles.menuTexto}> Tabs</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.menuBoton}
+          style={{...styles.menuBoton, flexDirection: 'row'}}
           onPress={() => navigation.navigate('SettingsScreen')}>
-          <Text style={styles.menuTexto}>Settings</Text>
+          <Icon name="cog-outline" size={23} color="black" />
+          <Text style={styles.menuTexto}> Settings</Text>
         </TouchableOpacity>
       </View>
     </DrawerContentScrollView>

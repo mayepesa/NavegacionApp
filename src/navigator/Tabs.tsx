@@ -4,10 +4,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Tab1Screen} from '../screens/Tab1Screen';
 // import {Tab3Screen} from '../screens/Tab3Screen';
 import {StackNavigator} from './StackNavigator';
-import {colores} from '../theme/appTheme';
 import {Platform, Text} from 'react-native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import TopTabNavigator from './TopTabNavigator';
+import {colores} from '../theme/appTheme';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const Tabs = () => {
   return Platform.OS === 'ios' ? <TabsIOS /> : <TabsAndroid />;
@@ -36,18 +37,18 @@ export const TabsAndroid = () => {
           let iconName: string = '';
           switch (route.name) {
             case 'Tab1Screen':
-              iconName = 'T1';
+              iconName = 'bandage-outline';
               break;
 
             case 'Tab2Screen':
-              iconName = 'T2';
+              iconName = 'basketball-outline';
               break;
 
             case 'StackNavigator':
-              iconName = 'St';
+              iconName = 'bookmarks-outline';
               break;
           }
-          return <Text style={{color}}>{iconName}</Text>;
+          return <Icon name={iconName} size={20} color={color} />;
         },
       })}>
       <BottomTabAndroid.Screen
@@ -78,9 +79,7 @@ const BottomTabIOS = createBottomTabNavigator();
 export const TabsIOS = () => {
   return (
     <BottomTabIOS.Navigator
-      sceneContainerStyle={{
-        backgroundColor: 'white',
-      }}
+      sceneContainerStyle={{backgroundColor: 'white'}}
       screenOptions={({route}) => ({
         tabBarActiveTintColor: colores.primary,
         tabBarStyle: {
@@ -91,22 +90,22 @@ export const TabsIOS = () => {
         tabBarLabelStyle: {
           fontSize: 15,
         },
-        tabBarIcon: ({color, focused, size}) => {
+        tabBarIcon: ({color}) => {
           let iconName: string = '';
           switch (route.name) {
             case 'Tab1Screen':
-              iconName = 'T1';
+              iconName = 'bandage-outline';
               break;
 
             case 'Tab2Screen':
-              iconName = 'T2';
+              iconName = 'basketball-outline';
               break;
 
             case 'StackNavigator':
-              iconName = 'St';
+              iconName = 'bookmarks-outline';
               break;
           }
-          return <Text style={{color}}>{iconName}</Text>;
+          return <Icon name={iconName} size={20} color={color} />;
         },
       })}>
       {/* <Tab.Screen
